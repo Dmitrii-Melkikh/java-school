@@ -12,16 +12,16 @@ public class Rectangle extends Figure {
 
     @Override
     public void move(double dx, double dy){
-        this.x1 += dx;
-        this.x2 += dx;
-        this.y1 += dy;
-        this.y2 +=dy;
+        x1 += dx;
+        x2 += dx;
+        y1 += dy;
+        y2 +=dy;
 
     }
     @Override
     public boolean checkPoint(double x, double y){
         return x <= Math.max(this.x1, this.x2) && x >= Math.min(this.x1, this.x2) &&
-                y <= Math.max(this.y1, this.y2) && x >= Math.min(this.y1, this.y2);
+                y <= Math.max(this.y1, this.y2) && y >= Math.min(this.y1, this.y2);
     }
 
     @Override

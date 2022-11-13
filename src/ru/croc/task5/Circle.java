@@ -12,8 +12,8 @@ public class Circle extends Figure {
 
     @Override
     public void move(double dx, double dy){
-        this.x0 += dx;
-        this.y0 += dy;
+        x0 += dx;
+        y0 += dy;
     }
 
     @Override
