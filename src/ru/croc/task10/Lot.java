@@ -13,6 +13,7 @@ public class Lot{
         this.cost = cost;
         this.name = name;
         this.endTime = endTime;
+        System.out.println(cost + name);
     }
 
     public void makeBid(int cost, String name) {
