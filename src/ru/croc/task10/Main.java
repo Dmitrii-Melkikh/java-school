@@ -26,10 +26,10 @@ public class Main {
         cal.set(Calendar.SECOND,0);
         cal.set(Calendar.MILLISECOND,0);
         Date date = cal.getTime();
-        Thread[] threads = new Thread[100];
-        Lot lot = new Lot(5, "I", date);
-        for (int i = 0; i < 100; i++){
-            x = r.nextInt(1000000000);
+        Thread[] threads = new Thread[4];
+        Lot lot = new Lot(1, "I", date);
+        for (int i = 0; i < 4; i++){
+            x = r.nextInt(100);
             name = generateString(r, "abcdefghklo", 5);
             threads[i] = new Thread(new Buyer(name, x, lot));
             threads[i].start();

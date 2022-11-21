@@ -13,17 +13,20 @@ public class Lot{
         this.cost = cost;
         this.name = name;
         this.endTime = endTime;
-        System.out.println(cost + name);
+        System.out.println(cost + " " + name);
     }
 
     public void makeBid(int cost, String name) {
         lock.lock();
+        System.out.println(cost + " " + name);
         if (cost > this.cost && new Date().before(this.endTime)) {
             this.cost = cost;
             this.name = name;
+
             }
         else if (new Date().before(this.endTime)){
             System.out.println("Your bid is too small");
+
         }
         else {
             System.out.println("Auction is end");
