@@ -15,7 +15,7 @@ public class CalculatePassw implements Runnable{
     private final int sizeOfAlphabet = 26; //размер алфавита
     private static volatile boolean passFound = false; // Флаг нахождения нужного пароля
     private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
-    private ReentrantLock lock = new ReentrantLock();
+
 
 
     private static String toHexString(byte[] bytes) {
@@ -49,14 +49,13 @@ public class CalculatePassw implements Runnable{
     }
 
     private String generatePassw(long n){
-        lock.lock();
+
         char[] password = new char[passwLength];
         for(int i = 0; i < passwLength; i++) {
             password[i] = (char) ('a' + (n % sizeOfAlphabet) );
             n /= sizeOfAlphabet;
         }
         String pass = new String(password);
-        lock.unlock();
         return pass;
     }
 
