@@ -39,10 +39,10 @@ class ServerConnection extends Thread {
 
     private void send(String msg) {
         try {
-            lock.lock();
+
             out.write(msg + "\n");
             out.flush();
-            lock.unlock();
+
         } catch (IOException ignored) {this.downService();}
     }
 
