@@ -8,6 +8,5 @@ public class Client {
 
     public static void main(String[] args) {
         new ClientConnection(adr, port);
-        new ClientConnection(adr, port);
     }
 }

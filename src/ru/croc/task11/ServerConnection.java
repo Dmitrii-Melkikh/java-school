@@ -29,9 +29,6 @@ class ServerConnection extends Thread {
                     this.downService();
                     break;                }
                 for (ServerConnection c : Server.connectionsList) {
-                    if (c == this){
-                        continue;
-                    }
                     c.send(msg);
                 }
             }
