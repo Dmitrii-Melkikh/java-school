@@ -8,7 +8,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the IDs of the movies you have watched: ");
         String inputIds = sc.next();
-        System.out.println(Recommendation.findRecommendation(inputIds));
+        Recommendation rec = new Recommendation(inputIds);
+        System.out.println(rec.findRecommendation());
 
     }
 }

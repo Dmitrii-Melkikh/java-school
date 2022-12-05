@@ -1,19 +1,21 @@
 package ru.croc.task13;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class GetInfo {
+public class Info {
 
-    private static final String films = "src/ru/croc/task13/films.txt";
-    private static final String historyOfViews = "src/ru/croc/task13/views.txt";
+    private String films;
+    private String historyOfViews;
 
-
-    public static HashMap<Integer,String> getFilms(){
+    public Info(String films, String historyOfViews){
+        this.films = films;
+        this.historyOfViews = historyOfViews;
+    }
+    public HashMap<Integer,String> pullOutFilms(){
         Scanner scanner;
         try {
             scanner = new Scanner(Paths.get(films));
@@ -29,7 +31,7 @@ public class GetInfo {
         return mapOfFilms;
     }
 
-    public static ArrayList<String> getHistoryOfViews(){
+    public ArrayList<String> pullOutHistoryOfViews(){
         Scanner scanner;
         try {
             scanner = new Scanner(Paths.get(historyOfViews));

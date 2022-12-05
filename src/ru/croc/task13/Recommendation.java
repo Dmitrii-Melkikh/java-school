@@ -3,9 +3,16 @@ package ru.croc.task13;
 import java.util.*;
 
 public class Recommendation {
-    public static String findRecommendation(String userFilms){
-        HashMap<Integer,String> mapOfFilms = GetInfo.getFilms();
-        ArrayList<String> arrayViews = GetInfo.getHistoryOfViews();
+    private String userFilms;
+    public Recommendation(String userFilms){
+        this.userFilms = userFilms;
+    }
+    public String findRecommendation(){
+
+        Info info = new Info("src/ru/croc/task13/films.txt", "src/ru/croc/task13/views.txt");
+        HashMap<Integer,String> mapOfFilms = info.pullOutFilms();
+        ArrayList<String> arrayViews = info.pullOutHistoryOfViews();
+
         ArrayList<HashSet<Integer>> setOfViews = new ArrayList<>();
 
         for(String view: arrayViews) {
@@ -23,7 +30,6 @@ public class Recommendation {
             setOfUserFilms.add(Integer.parseInt(film));
         }
         HashSet<Integer> validFilms = getValidFilms(setOfUserFilms, setOfViews);
-
         int idRecommendFilm = getRecommendFilm(validFilms, setOfViews);
         if (idRecommendFilm!=-1){
             return mapOfFilms.get(idRecommendFilm);
@@ -60,6 +66,7 @@ public class Recommendation {
             }
             if (count > max){
                 id = film;
+                max = count;
             }
         }
         return id;
