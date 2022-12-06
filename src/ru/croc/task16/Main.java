@@ -1,6 +1,5 @@
 package ru.croc.task16;
 
-import ru.croc.task15.Respondent;
 
 import java.util.*;
 
