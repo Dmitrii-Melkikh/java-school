@@ -53,7 +53,7 @@ public class Main {
             }
         } );
         System.out.println(drivers.get(0).getId());
-        System.out.println(drivers);
+
 
     }
 
