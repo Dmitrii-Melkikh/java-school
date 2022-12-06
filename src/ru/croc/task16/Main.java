@@ -27,36 +27,31 @@ public class Main {
         drivers.add(new Driver(59,63, "Комфорт", h, "U-SnezhanaDenisovna-79995553535"));
         drivers.add(new Driver(59,57, "Комфорт", h1, "K-OleqIgorevich-79371283511"));
         drivers.add(new Driver(78,37, "Комфорт", h2, "L-NikitaLeonidovich-79510310341"));
-        drivers.sort(new Comparator<>() {
-            @Override
-            public int compare(Driver d1, Driver d2) {
-                if (d1.getComfortClass().equals(comfortClass) && !d2.getComfortClass().equals(comfortClass)) {
-                    return -1;
-                }
-                else if(!d1.getComfortClass().equals(comfortClass) && d2.getComfortClass().equals(comfortClass)){
-                    return 1;
-                }
-                if (d1.getSpecialRequests().containsAll(specialRequests) && !d2.getSpecialRequests().containsAll(specialRequests)){
-                    return -1;
-                }
-                else if (!d1.getSpecialRequests().containsAll(specialRequests) && d2.getSpecialRequests().containsAll(specialRequests)){
-                    return 1;
-                }
-                if (distance_Between_LatLong(latitude, longtitude, d1.getLatitude(), d1.getLongitude()) >
-                        distance_Between_LatLong(latitude, longtitude, d2.getLatitude(), d2.getLongitude())){
-                    return 1;
-                }
-                else if (distance_Between_LatLong(latitude, longtitude, d1.getLatitude(), d1.getLongitude()) <
-                        distance_Between_LatLong(latitude, longtitude, d2.getLatitude(), d2.getLongitude())){
-                    return -1;
-                }
-                else{
-                    return 0;
-                }
-
-
+        drivers.sort((d1, d2) -> {
+            if (d1.getComfortClass().equals(comfortClass) && !d2.getComfortClass().equals(comfortClass)) {
+                return -1;
             }
-        });
+            else if(!d1.getComfortClass().equals(comfortClass) && d2.getComfortClass().equals(comfortClass)){
+                return 1;
+            }
+            if (d1.getSpecialRequests().containsAll(specialRequests) && !d2.getSpecialRequests().containsAll(specialRequests)){
+                return -1;
+            }
+            else if (!d1.getSpecialRequests().containsAll(specialRequests) && d2.getSpecialRequests().containsAll(specialRequests)){
+                return 1;
+            }
+            if (distance_Between_LatLong(latitude, longtitude, d1.getLatitude(), d1.getLongitude()) >
+                    distance_Between_LatLong(latitude, longtitude, d2.getLatitude(), d2.getLongitude())){
+                return 1;
+            }
+            else if (distance_Between_LatLong(latitude, longtitude, d1.getLatitude(), d1.getLongitude()) <
+                    distance_Between_LatLong(latitude, longtitude, d2.getLatitude(), d2.getLongitude())){
+                return -1;
+            }
+            else{
+                return 0;
+            }
+        } );
         System.out.println(drivers.get(0).getId());
         System.out.println(drivers);
 
