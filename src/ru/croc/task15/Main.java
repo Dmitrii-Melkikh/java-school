@@ -1,8 +1,9 @@
 package ru.croc.task15;
 
-import java.util.Scanner;
-import java.util.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
@@ -10,16 +11,45 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] ageGroups = new int[args.length];
-        for (int i = 0; i < ageGroups.length; i++) {
-            ageGroups[i] = Integer.parseInt(args[i]);
+        ArrayList<AgeGroup> ageGroups = new ArrayList<>();
+
+        ageGroups.add(new AgeGroup(0 , Integer.parseInt(args[0])));
+        for (int i = 1; i < args.length; i++){
+
+            ageGroups.add(new AgeGroup(Integer.parseInt(args[i-1]) + 1, Integer.parseInt(args[i])));
         }
+        ageGroups.add(new AgeGroup(Integer.parseInt(args[args.length-1]) + 1, 10000));
+
 
         ArrayList<Respondent> respondents = new ArrayList<>();
         System.out.println("Введите респондентов: ");
         inputRespondents(respondents);
-        distributionByGroup(ageGroups, respondents);
 
+        for (Respondent respondent: respondents){
+            for(AgeGroup ageGroup:ageGroups){
+                if (ageGroup.getEndAge() == -1){
+
+                }
+                if (ageGroup.getStartAge() <= respondent.getAge() &&
+                        respondent.getAge()<= ageGroup.getEndAge()){
+                    ageGroup.addRespondent(respondent);
+                }
+            }
+        }
+        Collections.reverse(ageGroups);
+        for (AgeGroup ageGroup : ageGroups) {
+            ageGroup.sortInGroup();
+            String resRespondents = ageGroup.getRespondents().toString().replace("[", "").replace("]", "");
+            if (ageGroup.getRespondents().size() != 0){
+                if (ageGroup.getEndAge() != 10000) {
+                    System.out.println(ageGroup.getStartAge() + "-" + ageGroup.getEndAge() + ": "
+                            + resRespondents);
+                } else {
+                    System.out.println(ageGroup.getStartAge() + "+ : "
+                            + resRespondents);
+                }
+            }
+        }
     }
 
     private static void inputRespondents(ArrayList<Respondent> respondents){
@@ -52,64 +82,5 @@ public class Main {
         }
     }
 
-    private static void distributionByGroup(int[] ageGroups, ArrayList<Respondent> respondents){
 
-        for (int i = ageGroups.length - 1; i >= 0; i--) {
-
-            ArrayList<Respondent> respondentsInGroup = new ArrayList<>();
-            ArrayList<Respondent> respondentsRemove = new ArrayList<>();
-
-            for (Respondent respondent: respondents){
-                if (respondent.getAge() > ageGroups[i] ) {
-                    respondentsInGroup.add(respondent);
-                    respondentsRemove.add(respondent);
-                }
-            }
-            respondents.removeAll(respondentsRemove);
-
-            if (respondentsInGroup.size() != 0) {
-                respondentsInGroup.sort(new Comparator<>() {
-                    @Override
-                    public int compare(Respondent r1, Respondent r2) {
-                        if (r1.getAge() != r2.getAge()) {
-                            return (-Integer.compare(r1.getAge(), r2.getAge()));
-                        } else {
-                            for (int i = 0; i < r1.getFullname().length(); i++) {
-                                if (r1.getFullname().charAt(i) != r2.getFullname().charAt(i))
-                                    return (Character.compare(r1.getFullname().charAt(i), r2.getFullname().charAt(i)));
-                            }
-                        }
-                        return 0;
-                    }
-                });
-
-                String resRespondents = respondentsInGroup.toString().replace("[", "").replace("]", "");
-                if (i != ageGroups.length - 1){
-                    System.out.println((ageGroups[i] + 1) + "-" + ageGroups[i + 1] + ": " + resRespondents);
-                }
-                else {
-                    System.out.println((ageGroups[i] + 1) + "+: " + resRespondents);
-                }
-            }
-            if (i == 0 && respondents.size() > 0){
-                ArrayList<Respondent> lastGroup = new ArrayList<>();
-                lastGroup.addAll(respondents);
-                lastGroup.sort(new Comparator<>() {
-                    @Override
-                    public int compare(Respondent r1, Respondent r2) {
-                        if (r1.getAge() != r2.getAge()) {
-                            return (-Integer.compare(r1.getAge(), r2.getAge()));
-                        } else {
-                            for (int i = 0; i < r1.getFullname().length(); i++) {
-                                if (r1.getFullname().charAt(i) != r2.getFullname().charAt(i))
-                                    return (Character.compare(r1.getFullname().charAt(i), r2.getFullname().charAt(i)));
-                            }
-                        }
-                        return 0;
-                    }
-                });
-                System.out.print("0-" + ageGroups[0] + ": " + lastGroup.toString().replace("[", "").replace("]", ""));
-            }
-        }
-    }
 }
