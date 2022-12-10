@@ -34,23 +34,17 @@ public class AgeGroup {
         return respondents;
     }
 
-    public void setRespondents(ArrayList<Respondent> respondents) {
-        this.respondents = respondents;
-    }
+
 
     public int getStartAge() {
         return startAge;
     }
 
-    public void setStartAge(int startAge) {
-        this.startAge = startAge;
-    }
+
 
     public int getEndAge() {
         return endAge;
     }
 
-    public void setEndAge(int endAge) {
-        this.endAge = endAge;
-    }
+
 }
