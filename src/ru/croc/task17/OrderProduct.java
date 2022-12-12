@@ -2,23 +2,21 @@ package ru.croc.task17;
 
 public class OrderProduct {
 
-    private String articleId;
-    private int orderId;
 
-    public OrderProduct(String articleId, int orderId){
-        this.articleId = articleId;
-        this.orderId = orderId;
+    private Product product;
+    private Order order;
+
+    public OrderProduct(Product product, Order order){
+        this.product = product;
+        this.order = order;
     }
 
-    public String getArticleId() {
-        return articleId;
+
+    public Order getOrder() {
+        return order;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-    @Override
-    public String toString(){
-        return articleId + " " + orderId;
+    public Product getProduct() {
+        return product;
     }
 }

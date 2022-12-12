@@ -23,18 +23,20 @@ public class ImporterToDatabase {
     private String pathToFile;
     private String user;
     private String password;
+    private String driverName;
 
-    public ImporterToDatabase(String pathToFile, String connectionUrl, String user, String password) {
+    public ImporterToDatabase(String pathToFile, String connectionUrl, String user, String password, String driverName) {
         this.connectionUrl = connectionUrl;
         this.pathToFile = pathToFile;
         this.user =user;
         this.password = password;
+        this.driverName = driverName;
 
     }
 
     public void startImport(){
         try{
-            Class.forName("org.postgresql.Driver");
+            Class.forName(driverName);
         }
         catch (ClassNotFoundException e){
             System.out.println("Не установлен драйвер работы с БД");
@@ -77,13 +79,20 @@ public class ImporterToDatabase {
         while (scanner.hasNextLine()) {
             tmp = scanner.nextLine().split(",");
 
-            orderProducts.add(new OrderProduct(tmp[2],Integer.parseInt(tmp[0])));
+//            orderProducts.add(new OrderProduct(tmp[2],Integer.parseInt(tmp[0])));
 
             if (orderIds.add(Integer.parseInt(tmp[0])))
                 orders.add(new Order(Integer.parseInt(tmp[0]), tmp[1]));
 
             if (articleIds.add(tmp[2]))
                 products.add(new Product(tmp[2], tmp[3], new BigDecimal(tmp[4])));
+            for (Product product: products){
+                for (Order order: orders){
+                    if (product.getArticleId().equals(tmp[2]) && order.getOrderId() == Integer.parseInt(tmp[0])){
+                        orderProducts.add(new OrderProduct(product, order));
+                    }
+                }
+            }
         }
     }
 
@@ -114,8 +123,8 @@ public class ImporterToDatabase {
         String sql = "INSERT INTO OrderProduct VALUES(?,?)";
         for (OrderProduct orderProduct : orderProducts) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, orderProduct.getArticleId());
-                statement.setInt(2, orderProduct.getOrderId());
+                statement.setString(1, orderProduct.getProduct().getArticleId());
+                statement.setInt(2, orderProduct.getOrder().getOrderId());
                 statement.execute();
             }
         }
