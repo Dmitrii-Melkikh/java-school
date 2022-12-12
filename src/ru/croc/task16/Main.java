@@ -9,8 +9,8 @@ public class Main {
         ArrayList<Driver> drivers = new ArrayList<>();
         System.out.println("Введите координаты (широта и долгота): ");
         String[] coordinates = sc.nextLine().split(" ");
-        double latitude = Double.parseDouble(coordinates[0].replace(",",""));
-        double longtitude = Double.parseDouble(coordinates[1]);
+        double latitude = Double.parseDouble(args[0]);
+        double longtitude = Double.parseDouble(args[1]);
         System.out.println("Введите класс комфорта: ");
         String comfortClass = sc.nextLine();
         Set<String> specialRequests = new HashSet<>();
