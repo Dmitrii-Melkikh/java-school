@@ -90,6 +90,7 @@ public class ImporterToDatabase {
                 for (Order order: orders){
                     if (product.getArticleId().equals(tmp[2]) && order.getOrderId() == Integer.parseInt(tmp[0])){
                         orderProducts.add(new OrderProduct(product, order));
+                        break;
                     }
                 }
             }
