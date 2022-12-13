@@ -13,7 +13,9 @@ public class Product {
         this.name = name;
         this.cost = cost;
     }
-
+    public Product(String articleId){
+        this.articleId = articleId;
+    }
     public String getArticleId() {
         return articleId;
     }
